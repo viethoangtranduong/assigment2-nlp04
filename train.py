@@ -230,7 +230,9 @@ class Trainer:
                 with torch.no_grad():
                     print("Can u do torch grad")
                     print([self.gpu_id if not self.is_ddp_training else 1])
-                    outputs = self.model(**batch.to(self.gpu_id if not self.is_ddp_training else 0))
+                    print(self.model)
+                    # outputs = self.model(**batch.to(self.gpu_id if not self.is_ddp_training else 0))
+                    outputs = self.model(**batch.to(self.gpu_id))
                 print("finished self.ctx + line 230")
             avg_loss += outputs.loss.item()
         avg_loss = avg_loss/(len(eval_dataloader))
