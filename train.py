@@ -275,7 +275,7 @@ class Trainer:
             train_loss = self._run_epoch(train_dataloader, epoch)
 
             dist.barrier()  
-            if _is_master_process():
+            if _is_master_process() or (epoch == self.num_epochs - 1):
                 eval_loss = self._eval(
                     eval_dataloader=eval_dataloader, epoch=epoch)
 
