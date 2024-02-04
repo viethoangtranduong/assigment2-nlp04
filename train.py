@@ -9,7 +9,8 @@ from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer, DataCo
 from contextlib import nullcontext
 
 from torch.nn.parallel import DistributedDataParallel as DDP
-from torch.distributed import init_process_group, destroy_process_group, dist
+from torch.distributed import init_process_group, destroy_process_group
+import torch.distributed as dist
 from torch.utils.data.distributed import DistributedSampler
 from torch.utils.data import DataLoader, SequentialSampler
 
