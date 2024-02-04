@@ -194,7 +194,8 @@ class Trainer:
             batch_size=self.batch_size,
             sampler=DistributedSampler(
                 train_dataset, rank=self.gpu_id) if self.is_ddp_training else None,
-            collate_fn=DataCollatorForSeq2Seq(self.tokenizer, pad_to_multiple_of=8, return_tensors="pt", padding=True))
+            collate_fn=DataCollatorForSeq2Seq(self.tokenizer, pad_to_multiple_of=8, return_tensors="pt", padding=True),
+            drop_last=True)
 
         # TODO: Prepare the evaluation DataLoader. Initialize 'DataLoader' with 'eval_dataset',
         # the appropriate 'batch_size', and 'SequentialSampler' for 'sampler'.
@@ -205,7 +206,8 @@ class Trainer:
             eval_dataset,
             batch_size=self.batch_size,
             sampler=SequentialSampler(eval_dataset),
-            collate_fn=DataCollatorForSeq2Seq(self.tokenizer, pad_to_multiple_of=8, return_tensors="pt", padding=True))
+            collate_fn=DataCollatorForSeq2Seq(self.tokenizer, pad_to_multiple_of=8, return_tensors="pt", padding=True),
+            drop_last=True)
 
         return data_trainloader, data_testloader
 
