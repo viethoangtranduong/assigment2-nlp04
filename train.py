@@ -230,7 +230,8 @@ class Trainer:
                 with torch.no_grad():
                     print("Can u do torch grad")
                     print([self.gpu_id if not self.is_ddp_training else 1])
-                    print("model!!", self.model)
+                    # print("model!!", self.model)
+                    print(batch)
                     # outputs = self.model(**batch.to(self.gpu_id if not self.is_ddp_training else 0))
                     outputs = self.model(**batch)
                 print("finished self.ctx + line 230")
