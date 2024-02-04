@@ -9,7 +9,7 @@ from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer, DataCo
 from contextlib import nullcontext
 
 from torch.nn.parallel import DistributedDataParallel as DDP
-from torch.distributed import init_process_group, destroy_process_group
+from torch.distributed import init_process_group, destroy_process_group, dist
 from torch.utils.data.distributed import DistributedSampler
 from torch.utils.data import DataLoader, SequentialSampler
 
@@ -273,6 +273,7 @@ class Trainer:
 
             train_loss = self._run_epoch(train_dataloader, epoch)
 
+            dist.barrier()  
             if _is_master_process():
                 eval_loss = self._eval(
                     eval_dataloader=eval_dataloader, epoch=epoch)
@@ -418,7 +419,6 @@ if __name__ == "__main__":
         output_dir=OUTPUT_DIR,
         is_ddp_training=True if distributed_strategy == "ddp" else False,
         gradient_accumulation_steps=gradient_accumulation_steps,
-        limit_val_batches=5,
     )
 
     # set ddp for wraping model
