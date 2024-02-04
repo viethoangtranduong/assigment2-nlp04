@@ -234,6 +234,7 @@ class Trainer:
                     print(batch)
                     # outputs = self.model(**batch.to(self.gpu_id if not self.is_ddp_training else 0))
                     outputs = self.model(**batch)
+                    print(outputs)
                 print("finished self.ctx + line 230")
             avg_loss += outputs.loss.item()
         avg_loss = avg_loss/(len(eval_dataloader))
