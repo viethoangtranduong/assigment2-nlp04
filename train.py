@@ -182,6 +182,8 @@ class Trainer:
         else:
             self.model.save_pretrained(f'epoch_{epoch}_checkpoint')
 
+        print("Done saved at", f'epoch_{epoch}_checkpoint')
+
     def prepare_dataloader(self, train_dataset, eval_dataset):
         # TODO: Prepare the training DataLoader. Initialize 'DataLoader' with 'train_dataset'
         # and the appropriate 'batch_size'.
@@ -284,7 +286,6 @@ class Trainer:
             
             if _is_master_process():
                 self._save_checkpoint(epoch=epoch)
-
 
 def load_tokenizer_from_pretrained_model(model_path):
 
