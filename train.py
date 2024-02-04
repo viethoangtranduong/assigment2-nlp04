@@ -227,7 +227,7 @@ class Trainer:
 
         for batch in eval_progress_bar:
             with self.ctx:
-                print("in the self.ctx + line 227")
+                print(self.gpu_id, "in the self.ctx + line 227")
                 with torch.no_grad():
                     # print("Can u do torch grad")
                     # print([self.gpu_id if not self.is_ddp_training else 1])
@@ -235,8 +235,8 @@ class Trainer:
                     # print(batch)
                     # outputs = self.model(**batch.to(self.gpu_id if not self.is_ddp_training else 0))
                     outputs = self.model(**batch)
-                    print(outputs)
-                print("finished self.ctx + line 230")
+                    # print(outputs)
+                print(self.gpu_id, "finished self.ctx + line 230")
             avg_loss += outputs.loss.item()
         avg_loss = avg_loss/(len(eval_dataloader))
         return avg_loss
