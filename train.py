@@ -213,21 +213,21 @@ class Trainer:
         avg_loss = 0
         model.eval()
         if _is_master_process():
-            print("inside master process")
+            print("inside master process + line 216")
             eval_progress_bar = tqdm(
                 eval_dataloader, desc=f"Epoch {epoch + 1} [Evaluation]", position=0, leave=False)
         else:
             eval_progress_bar = eval_dataloader
 
-        print("outside eval")
+        print("outside eval + line 222")
 
 
         for batch in eval_progress_bar:
             with self.ctx:
-                print("testing")
+                print("in the self.ctx + line 227")
                 with torch.no_grad():
                     outputs = self.model(**batch.to(self.gpu_id if not self.is_ddp_training else 1))
-                print("testtest")
+                print("finished self.ctx + line 230")
             avg_loss += outputs.loss.item()
         avg_loss = avg_loss/(len(eval_dataloader))
         return avg_loss
@@ -363,7 +363,7 @@ if __name__ == "__main__":
 
     size_valid_set = 0.15
     max_length = 128
-    num_epochs = 1
+    num_epochs = 3
     batch_size = 2
     gradient_accumulation_steps = 8
 
