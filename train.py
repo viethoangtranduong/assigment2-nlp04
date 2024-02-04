@@ -281,6 +281,8 @@ class Trainer:
 
                 print(
                     f"epoch = {epoch+1} | avg_train_loss = {train_loss} | eval_loss = {eval_loss}")
+            
+            if _is_master_process():
                 self._save_checkpoint(epoch=epoch)
 
 
