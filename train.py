@@ -228,10 +228,10 @@ class Trainer:
             with self.ctx:
                 print("in the self.ctx + line 227")
                 with torch.no_grad():
-                    print("Can u do torch grad")
-                    print([self.gpu_id if not self.is_ddp_training else 1])
-                    # print("model!!", self.model)
-                    print(batch)
+                    # print("Can u do torch grad")
+                    # print([self.gpu_id if not self.is_ddp_training else 1])
+                    # # print("model!!", self.model)
+                    # print(batch)
                     # outputs = self.model(**batch.to(self.gpu_id if not self.is_ddp_training else 0))
                     outputs = self.model(**batch)
                     print(outputs)
@@ -418,6 +418,7 @@ if __name__ == "__main__":
         output_dir=OUTPUT_DIR,
         is_ddp_training=True if distributed_strategy == "ddp" else False,
         gradient_accumulation_steps=gradient_accumulation_steps,
+        limit_val_batches=5,
     )
 
     # set ddp for wraping model
